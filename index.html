@@ -1,0 +1,65 @@
+!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Carte déchetteries complète</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<style>
+#carte {
+  height: 100vh;
+}
+
+.menu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  z-index: 999;
+}
+</style>
+</head>
+
+<body>
+
+<div id="carte"></div>
+
+<div class="menu">
+<b>Affichage</b><br>
+<input type="checkbox" id="points" checked> Points<br>
+</div>
+
+<script>
+
+// Création carte
+var carte = L.map('carte').setView([48.5, 1.5], 9);
+
+// Fond de carte
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap'
+}).addTo(carte);
+
+// Liste des points (EXEMPLE - remplace par les tiens)
+var points = [
+  ["Goussainville",48.77061,1.54595],
+  ["Houx",48.56831,1.63179],
+  ["Combray",48.30145,1.23213],
+  ["Jallans",48.07908,1.37485],
+  ["Nogent",48.31519,0.84255]
+];
+
+// Ajout des marqueurs
+points.forEach(function(p){
+  L.marker([p[1], p[2]]).addTo(carte)
+    .bindPopup(p[0]);
+});
+
+</script>
+
+</body>
+</html>
